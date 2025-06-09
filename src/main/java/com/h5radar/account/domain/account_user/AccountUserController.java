@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "RadarUser API")
-@RequestMapping("/api/v1/radar-users")
+@RequestMapping("/api/v1/account-users")
 @RequiredArgsConstructor
 public class AccountUserController {
 
