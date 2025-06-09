@@ -1,4 +1,4 @@
-package com.h5radar.radar.domain.radar_user;
+package com.h5radar.radar.domain.account_user;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
