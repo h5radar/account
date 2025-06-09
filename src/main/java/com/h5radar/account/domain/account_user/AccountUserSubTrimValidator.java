@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 
-public class RadarUserSubTrimValidator implements ConstraintValidator<RadarUserTrimSubConstraint, String> {
+public class AccountUserSubTrimValidator implements ConstraintValidator<AccountUserTrimSubConstraint, String> {
 
   @Override
   public boolean isValid(String value, ConstraintValidatorContext context) {

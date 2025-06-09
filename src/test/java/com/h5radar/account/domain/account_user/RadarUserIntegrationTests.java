@@ -13,17 +13,17 @@ import com.h5radar.account.domain.AbstractIntegrationTests;
 class RadarUserIntegrationTests extends AbstractIntegrationTests {
 
   @Autowired
-  private RadarUserService radarUserService;
+  private AccountUserService accountUserService;
 
   @Test
   @WithMockUser
   public void shouldGetRadarUsers() {
     // Create technology
-    RadarUserDto technologyDto = new RadarUserDto();
+    AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(null);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
-    technologyDto = radarUserService.save(technologyDto);
+    technologyDto = accountUserService.save(technologyDto);
 
     webTestClient.get().uri("/api/v1/radar-users")
         .accept(MediaType.APPLICATION_JSON)
@@ -38,18 +38,18 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
         .jsonPath("$.content[0].sub").isEqualTo(technologyDto.getSub())
         .jsonPath("$.content[0].username").isEqualTo(technologyDto.getUsername());
 
-    radarUserService.deleteById(technologyDto.getId());
+    accountUserService.deleteById(technologyDto.getId());
   }
 
   @Test
   @WithMockUser
   public void shouldGetRadarUser() {
     // Create technology
-    RadarUserDto technologyDto = new RadarUserDto();
+    AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(null);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
-    technologyDto = radarUserService.save(technologyDto);
+    technologyDto = accountUserService.save(technologyDto);
 
     webTestClient.get().uri("/api/v1/radar-users/{id}", technologyDto.getId())
         .accept(MediaType.APPLICATION_JSON)
@@ -63,25 +63,25 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
         .jsonPath("$.sub").isEqualTo(technologyDto.getSub())
         .jsonPath("$.username").isEqualTo(technologyDto.getUsername());
 
-    radarUserService.deleteById(technologyDto.getId());
+    accountUserService.deleteById(technologyDto.getId());
   }
 
   @Test
   @WithMockUser
   public void shouldCreateRadarUser() throws Exception {
-    RadarUserDto technologyDto = new RadarUserDto();
+    AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(null);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    RadarUserDto technologyDto1 = webTestClient.post().uri("/api/v1/radar-users")
+    AccountUserDto technologyDto1 = webTestClient.post().uri("/api/v1/radar-users")
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
-        .body(Mono.just(technologyDto), RadarUserDto.class)
+        .body(Mono.just(technologyDto), AccountUserDto.class)
         .exchange()
         .expectStatus().isCreated()
         .expectHeader().contentType(MediaType.APPLICATION_JSON)
-        .expectBody(RadarUserDto.class)
+        .expectBody(AccountUserDto.class)
         .returnResult()
         .getResponseBody();
 
@@ -89,25 +89,25 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
     Assertions.assertEquals(technologyDto.getSub(), technologyDto1.getSub());
     Assertions.assertEquals(technologyDto.getUsername(), technologyDto1.getUsername());
 
-    radarUserService.deleteById(technologyDto1.getId());
+    accountUserService.deleteById(technologyDto1.getId());
   }
 
   @Test
   @WithMockUser
   public void shouldCreateRadarUserWithId() throws Exception {
-    RadarUserDto technologyDto = new RadarUserDto();
+    AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(99L);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    RadarUserDto technologyDto1 = webTestClient.post().uri("/api/v1/radar-users")
+    AccountUserDto technologyDto1 = webTestClient.post().uri("/api/v1/radar-users")
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
-        .body(Mono.just(technologyDto), RadarUserDto.class)
+        .body(Mono.just(technologyDto), AccountUserDto.class)
         .exchange()
         .expectStatus().isCreated()
         .expectHeader().contentType(MediaType.APPLICATION_JSON)
-        .expectBody(RadarUserDto.class)
+        .expectBody(AccountUserDto.class)
         .returnResult()
         .getResponseBody();
 
@@ -115,39 +115,39 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
     Assertions.assertEquals(technologyDto.getSub(), technologyDto1.getSub());
     Assertions.assertEquals(technologyDto.getUsername(), technologyDto1.getUsername());
 
-    radarUserService.deleteById(technologyDto1.getId());
+    accountUserService.deleteById(technologyDto1.getId());
   }
 
   @Test
   @WithMockUser
   public void shouldUpdateRadarUser() throws Exception {
-    RadarUserDto technologyDto = new RadarUserDto();
+    AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(null);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
-    technologyDto = radarUserService.save(technologyDto);
+    technologyDto = accountUserService.save(technologyDto);
 
     webTestClient.put().uri("/api/v1/radar-users/{id}", technologyDto.getId())
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
-        .body(Mono.just(technologyDto), RadarUserDto.class)
+        .body(Mono.just(technologyDto), AccountUserDto.class)
         .exchange()
         .expectStatus().isOk()
         .expectHeader().contentType(MediaType.APPLICATION_JSON)
         .expectBody();
 
-    radarUserService.deleteById(technologyDto.getId());
+    accountUserService.deleteById(technologyDto.getId());
   }
 
 
   @Test
   @WithMockUser
   public void shouldDeleteRadarUser() throws Exception {
-    RadarUserDto technologyDto = new RadarUserDto();
+    AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(null);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
-    technologyDto = radarUserService.save(technologyDto);
+    technologyDto = accountUserService.save(technologyDto);
 
     webTestClient.delete().uri("/api/v1/radar-users/{id}", technologyDto.getId())
         .accept(MediaType.APPLICATION_JSON)

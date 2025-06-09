@@ -26,22 +26,22 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import com.h5radar.account.domain.AbstractControllerTests;
 
-@WebMvcTest(RadarUserController.class)
+@WebMvcTest(AccountUserController.class)
 public class RadarUserControllerTests extends AbstractControllerTests {
 
   @MockitoBean
-  private RadarUserService radarUserService;
+  private AccountUserService accountUserService;
 
   @Test
   @WithMockUser
   public void shouldGetTechnologies() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    Page<RadarUserDto> technologyDtoPage = new PageImpl<>(Arrays.asList(technologyDto));
-    Mockito.when(radarUserService.findAll(any(), any())).thenReturn(technologyDtoPage);
+    Page<AccountUserDto> technologyDtoPage = new PageImpl<>(Arrays.asList(technologyDto));
+    Mockito.when(accountUserService.findAll(any(), any())).thenReturn(technologyDtoPage);
 
     mockMvc.perform(get("/api/v1/radar-users").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -52,7 +52,7 @@ public class RadarUserControllerTests extends AbstractControllerTests {
         .andExpect(jsonPath("$.content[0].sub", equalTo(technologyDto.getSub())))
         .andExpect(jsonPath("$.content[0].username", equalTo(technologyDto.getUsername())));
 
-    Mockito.verify(radarUserService).findAll(any(), any());
+    Mockito.verify(accountUserService).findAll(any(), any());
   }
 
   public void shouldGetTechnologiesWithFilter() throws Exception {
@@ -74,12 +74,12 @@ public class RadarUserControllerTests extends AbstractControllerTests {
   @Test
   @WithMockUser
   public void shouldGetRadarUser() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    Mockito.when(radarUserService.findById(any())).thenReturn(Optional.of(technologyDto));
+    Mockito.when(accountUserService.findById(any())).thenReturn(Optional.of(technologyDto));
 
     mockMvc.perform(get("/api/v1/radar-users/{id}", technologyDto.getId())
             .contentType(MediaType.APPLICATION_JSON))
@@ -89,13 +89,13 @@ public class RadarUserControllerTests extends AbstractControllerTests {
         .andExpect(jsonPath("$.sub", equalTo(technologyDto.getSub())))
         .andExpect(jsonPath("$.username", equalTo(technologyDto.getUsername())));
 
-    Mockito.verify(radarUserService).findById(technologyDto.getId());
+    Mockito.verify(accountUserService).findById(technologyDto.getId());
   }
 
   @Test
   @WithAnonymousUser
   public void shouldFailToGetRadarUserDueToUnauthorized() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
 
     mockMvc.perform(get("/api/v1/radar-users/{id}", technologyDto.getId())
@@ -111,12 +111,12 @@ public class RadarUserControllerTests extends AbstractControllerTests {
   @Test
   @WithMockUser
   public void shouldCreateRadarUser() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    Mockito.when(radarUserService.save(any())).thenReturn(technologyDto);
+    Mockito.when(accountUserService.save(any())).thenReturn(technologyDto);
 
     mockMvc.perform(post("/api/v1/radar-users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -128,13 +128,13 @@ public class RadarUserControllerTests extends AbstractControllerTests {
         .andExpect(jsonPath("$.sub", equalTo(technologyDto.getSub())))
         .andExpect(jsonPath("$.username", equalTo(technologyDto.getUsername())));
 
-    Mockito.verify(radarUserService).save(any());
+    Mockito.verify(accountUserService).save(any());
   }
 
   @Test
   @WithAnonymousUser
   public void shouldFailToCreateRadarUserDueToUnauthorized() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
 
     mockMvc.perform(post("/api/v1/radar-users")
@@ -156,13 +156,13 @@ public class RadarUserControllerTests extends AbstractControllerTests {
   @Test
   @WithMockUser
   public void shouldUpdateRadarUser() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    Mockito.when(radarUserService.findById(any())).thenReturn(Optional.of(technologyDto));
-    Mockito.when(radarUserService.save(any())).thenReturn(technologyDto);
+    Mockito.when(accountUserService.findById(any())).thenReturn(Optional.of(technologyDto));
+    Mockito.when(accountUserService.save(any())).thenReturn(technologyDto);
 
     mockMvc.perform(put("/api/v1/radar-users/{id}", technologyDto.getId())
             .contentType(MediaType.APPLICATION_JSON)
@@ -170,14 +170,14 @@ public class RadarUserControllerTests extends AbstractControllerTests {
             .with(csrf()))
         .andExpect(status().isOk());
 
-    Mockito.verify(radarUserService).findById(technologyDto.getId());
-    Mockito.verify(radarUserService).save(any());
+    Mockito.verify(accountUserService).findById(technologyDto.getId());
+    Mockito.verify(accountUserService).save(any());
   }
 
   @Test
   @WithAnonymousUser
   public void shouldFailToUpdateRadarUserDueToUnauthorized() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
 
     mockMvc.perform(put("/api/v1/radar-users/{id}", technologyDto.getId())
@@ -204,26 +204,26 @@ public class RadarUserControllerTests extends AbstractControllerTests {
   @Test
   @WithMockUser
   public void shouldDeleteRadarUser() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    Mockito.when(radarUserService.findById(any())).thenReturn(Optional.of(technologyDto));
-    Mockito.doAnswer((i) -> null).when(radarUserService).deleteById(any());
+    Mockito.when(accountUserService.findById(any())).thenReturn(Optional.of(technologyDto));
+    Mockito.doAnswer((i) -> null).when(accountUserService).deleteById(any());
 
     mockMvc.perform(delete("/api/v1/radar-users/{id}", technologyDto.getId())
             .with(csrf()))
         .andExpect(status().isNoContent());
 
-    Mockito.verify(radarUserService).findById(technologyDto.getId());
-    Mockito.verify(radarUserService).deleteById(technologyDto.getId());
+    Mockito.verify(accountUserService).findById(technologyDto.getId());
+    Mockito.verify(accountUserService).deleteById(technologyDto.getId());
   }
 
   @Test
   @WithAnonymousUser
   public void shouldFailToDeleteRadarUserDueToUnauthorized() throws Exception {
-    final RadarUserDto technologyDto = new RadarUserDto();
+    final AccountUserDto technologyDto = new AccountUserDto();
     technologyDto.setId(10L);
 
     mockMvc.perform(delete("/api/v1/radar-users/{id}", technologyDto.getId())

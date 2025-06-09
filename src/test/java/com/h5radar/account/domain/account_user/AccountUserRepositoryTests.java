@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.h5radar.account.domain.AbstractRepositoryTests;
 
-class RadarUserRepositoryTests extends AbstractRepositoryTests {
+class AccountUserRepositoryTests extends AbstractRepositoryTests {
 
   @Autowired
-  private RadarUserRepository radarUserRepository;
+  private AccountUserRepository accountUserRepository;
 
   @Test
   void shouldSaveRadarUserWithAllFields() {
@@ -25,7 +25,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
     technology.setUsername("My username");
 
     Assertions.assertNull(technology.getId());
-    radarUserRepository.saveAndFlush(technology);
+    accountUserRepository.saveAndFlush(technology);
     Assertions.assertNotNull(technology.getId());
     Assertions.assertNotNull(technology.getCreatedBy());
     Assertions.assertNotNull(technology.getCreatedDate());
@@ -40,11 +40,11 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
     technology.setUsername("Very good username for RadarUser");
 
     Assertions.assertNull(technology.getId());
-    radarUserRepository.saveAndFlush(technology);
+    accountUserRepository.saveAndFlush(technology);
     Assertions.assertNotNull(technology.getId());
     var id = technology.getId();
 
-    Assertions.assertTrue(radarUserRepository.findById(id).isPresent());
+    Assertions.assertTrue(accountUserRepository.findById(id).isPresent());
   }
 
   @Test
@@ -54,7 +54,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
     Assertions.assertNull(technology.getId());
     ConstraintViolationException exception =
-        catchThrowableOfType(() -> radarUserRepository.saveAndFlush(technology),
+        catchThrowableOfType(() -> accountUserRepository.saveAndFlush(technology),
             ConstraintViolationException.class);
 
     Assertions.assertNotNull(exception);
@@ -73,7 +73,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
     Assertions.assertNull(technology.getId());
     ConstraintViolationException exception =
-        catchThrowableOfType(() -> radarUserRepository.saveAndFlush(technology),
+        catchThrowableOfType(() -> accountUserRepository.saveAndFlush(technology),
             ConstraintViolationException.class);
 
     Assertions.assertNotNull(exception);
@@ -93,7 +93,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
     Assertions.assertNull(technology.getId());
     ConstraintViolationException exception =
-        catchThrowableOfType(() -> radarUserRepository.saveAndFlush(technology),
+        catchThrowableOfType(() -> accountUserRepository.saveAndFlush(technology),
             ConstraintViolationException.class);
 
     Assertions.assertNotNull(exception);
@@ -112,7 +112,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
     Assertions.assertNull(technology.getId());
     ConstraintViolationException exception =
-        catchThrowableOfType(() -> radarUserRepository.saveAndFlush(technology),
+        catchThrowableOfType(() -> accountUserRepository.saveAndFlush(technology),
             ConstraintViolationException.class);
 
     Assertions.assertNotNull(exception);
@@ -131,7 +131,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
     Assertions.assertNull(technology.getId());
     ConstraintViolationException exception =
-        catchThrowableOfType(() -> radarUserRepository.saveAndFlush(technology),
+        catchThrowableOfType(() -> accountUserRepository.saveAndFlush(technology),
             ConstraintViolationException.class);
 
     Assertions.assertNotNull(exception);
@@ -151,7 +151,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
     Assertions.assertNull(technology.getId());
     ConstraintViolationException exception =
-        catchThrowableOfType(() -> radarUserRepository.saveAndFlush(technology),
+        catchThrowableOfType(() -> accountUserRepository.saveAndFlush(technology),
             ConstraintViolationException.class);
 
     Assertions.assertNotNull(exception);
@@ -169,7 +169,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
     technology.setSub("My new test RadarUser ");
 
     Assertions.assertNull(technology.getId());
-    assertThatThrownBy(() -> radarUserRepository.saveAndFlush(technology))
+    assertThatThrownBy(() -> accountUserRepository.saveAndFlush(technology))
         .isInstanceOf(ValidationException.class);
   }
 
@@ -179,7 +179,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
     technology.setSub(" My new test RadarUser");
 
     Assertions.assertNull(technology.getId());
-    assertThatThrownBy(() -> radarUserRepository.saveAndFlush(technology))
+    assertThatThrownBy(() -> accountUserRepository.saveAndFlush(technology))
         .isInstanceOf(ValidationException.class);
   }
 }

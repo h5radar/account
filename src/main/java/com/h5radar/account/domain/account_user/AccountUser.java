@@ -35,13 +35,13 @@ public class AccountUser extends AbstractAuditable {
 
   @NotBlank
   @Size(min = 1, max = 255)
-  @RadarUserTrimSubConstraint
+  @AccountUserTrimSubConstraint
   @Column(name = "sub", unique = true, nullable = false)
   private String sub;
 
   @NotBlank
   @Size(min = 1, max = 255)
-  @RadarUserTrimUsernameConstraint
+  @AccountUserTrimUsernameConstraint
   @Column(name = "username", unique = true, nullable = false)
   private String username;
 }

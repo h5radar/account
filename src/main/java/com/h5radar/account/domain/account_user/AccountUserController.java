@@ -28,30 +28,30 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "RadarUser API")
 @RequestMapping("/api/v1/radar-users")
 @RequiredArgsConstructor
-public class RadarUserController {
+public class AccountUserController {
 
   private static final String RADAR_USERS_SUB_CONSTRAINTS = "uc_radar_users_sub";
 
-  private final RadarUserService radarUserService;
+  private final AccountUserService accountUserService;
 
   @GetMapping("")
-  public ResponseEntity<Page<RadarUserDto>> index(
+  public ResponseEntity<Page<AccountUserDto>> index(
       @AuthenticationPrincipal Jwt jwt,
-      @Valid RadarUserFilter radarUserFilter,
+      @Valid AccountUserFilter accountUserFilter,
       @RequestParam(defaultValue = "${application.paging.page}") int page,
       @RequestParam(defaultValue = "${application.paging.size}") int size,
       @RequestParam(defaultValue = "sub,asc") String[] sort) {
 
     Sort.Direction direction = sort[1].equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
     Sort.Order order = new Sort.Order(direction, sort[0]);
-    Page<RadarUserDto> radarUserDtoPage =
-        radarUserService.findAll(radarUserFilter, PageRequest.of(page - 1, size, Sort.by(order)));
+    Page<AccountUserDto> radarUserDtoPage =
+        accountUserService.findAll(accountUserFilter, PageRequest.of(page - 1, size, Sort.by(order)));
     return ResponseEntity.status(HttpStatus.OK).body(radarUserDtoPage);
   }
 
   @GetMapping(value = "/{id}")
-  public ResponseEntity<RadarUserDto> show(@PathVariable("id") Long id) {
-    Optional<RadarUserDto> radarUserRecord = radarUserService.findById(id);
+  public ResponseEntity<AccountUserDto> show(@PathVariable("id") Long id) {
+    Optional<AccountUserDto> radarUserRecord = accountUserService.findById(id);
     if (radarUserRecord.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
@@ -59,14 +59,14 @@ public class RadarUserController {
   }
 
   @PostMapping
-  public ResponseEntity<RadarUserDto> create(@RequestBody RadarUserDto radarUserDto) {
+  public ResponseEntity<AccountUserDto> create(@RequestBody AccountUserDto accountUserDto) {
     try {
-      radarUserDto.setId(null);
-      radarUserDto = radarUserService.save(radarUserDto);
-      return ResponseEntity.status(HttpStatus.CREATED).body(radarUserDto);
+      accountUserDto.setId(null);
+      accountUserDto = accountUserService.save(accountUserDto);
+      return ResponseEntity.status(HttpStatus.CREATED).body(accountUserDto);
     } catch (DataIntegrityViolationException exception) {
       if (exception.getMessage().toLowerCase().contains(RADAR_USERS_SUB_CONSTRAINTS)) {
-        Optional<RadarUserDto> radarUserDtoOptional =  radarUserService.findBySub(radarUserDto.getSub());
+        Optional<AccountUserDto> radarUserDtoOptional =  accountUserService.findBySub(accountUserDto.getSub());
         if (radarUserDtoOptional.isPresent()) {
           return ResponseEntity.status(HttpStatus.CREATED).body(radarUserDtoOptional.get());
         }
@@ -77,23 +77,24 @@ public class RadarUserController {
 
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<RadarUserDto> update(@PathVariable("id") Long id, @RequestBody RadarUserDto radarUserDto) {
-    Optional<RadarUserDto> radarUserRecord = radarUserService.findById(id);
+  public ResponseEntity<AccountUserDto> update(@PathVariable("id") Long id,
+                                               @RequestBody AccountUserDto accountUserDto) {
+    Optional<AccountUserDto> radarUserRecord = accountUserService.findById(id);
     if (radarUserRecord.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-    radarUserDto.setId(id);
-    radarUserService.save(radarUserDto);
-    return ResponseEntity.status(HttpStatus.OK).body(radarUserDto);
+    accountUserDto.setId(id);
+    accountUserService.save(accountUserDto);
+    return ResponseEntity.status(HttpStatus.OK).body(accountUserDto);
   }
 
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-    Optional<RadarUserDto> radarUserRecord = radarUserService.findById(id);
+    Optional<AccountUserDto> radarUserRecord = accountUserService.findById(id);
     if (radarUserRecord.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-    radarUserService.deleteById(id);
+    accountUserService.deleteById(id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 }

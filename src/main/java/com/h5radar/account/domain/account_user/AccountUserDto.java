@@ -17,7 +17,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonPropertyOrder({"id", "sub", "username" })
-public class RadarUserDto {
+public class AccountUserDto {
 
   private Long id;
 

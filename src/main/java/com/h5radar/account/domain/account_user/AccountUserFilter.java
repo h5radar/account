@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class RadarUserFilter {
+public class AccountUserFilter {
 
   @Size(min = 0, max = 255)
   private String sub;

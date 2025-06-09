@@ -9,10 +9,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = RadarUserUsernameTrimValidator.class)
+@Constraint(validatedBy = AccountUserUsernameTrimValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RadarUserTrimUsernameConstraint {
+public @interface AccountUserTrimUsernameConstraint {
   String message() default "should be without whitespaces before and after";
 
   Class<?>[] groups() default {};

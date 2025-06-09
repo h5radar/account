@@ -24,52 +24,52 @@ import com.h5radar.account.domain.ValidationException;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class RadarUserServiceImpl implements RadarUserService {
+public class AccountUserServiceImpl implements AccountUserService {
 
   private final Validator validator;
-  private final RadarUserRepository radarUserRepository;
-  private final RadarUserMapper radarUserMapper;
+  private final AccountUserRepository accountUserRepository;
+  private final AccountUserMapper accountUserMapper;
 
   @Override
   @Transactional(readOnly = true)
-  public Collection<RadarUserDto> findAll() {
-    return radarUserRepository.findAll(Sort.by(Sort.Direction.ASC, "sub"))
-        .stream().map(radarUserMapper::toDto).collect(Collectors.toList());
+  public Collection<AccountUserDto> findAll() {
+    return accountUserRepository.findAll(Sort.by(Sort.Direction.ASC, "sub"))
+        .stream().map(accountUserMapper::toDto).collect(Collectors.toList());
   }
 
   @Override
   @Transactional(readOnly = true)
-  public Page<RadarUserDto> findAll(RadarUserFilter radarUserFilter, Pageable pageable) {
-    return radarUserRepository.findAll((root, query, builder) -> {
+  public Page<AccountUserDto> findAll(AccountUserFilter accountUserFilter, Pageable pageable) {
+    return accountUserRepository.findAll((root, query, builder) -> {
       List<Predicate> predicateList = new ArrayList<>();
-      if (radarUserFilter != null && radarUserFilter.getSub() != null
-          && !radarUserFilter.getSub().isBlank()) {
-        predicateList.add(builder.like(root.get("sub"), radarUserFilter.getSub()));
+      if (accountUserFilter != null && accountUserFilter.getSub() != null
+          && !accountUserFilter.getSub().isBlank()) {
+        predicateList.add(builder.like(root.get("sub"), accountUserFilter.getSub()));
       }
-      if (radarUserFilter != null && radarUserFilter.getUsername() != null
-          && !radarUserFilter.getUsername().isBlank()) {
-        predicateList.add(builder.like(root.get("username"), radarUserFilter.getUsername()));
+      if (accountUserFilter != null && accountUserFilter.getUsername() != null
+          && !accountUserFilter.getUsername().isBlank()) {
+        predicateList.add(builder.like(root.get("username"), accountUserFilter.getUsername()));
       }
       return builder.and(predicateList.toArray(new Predicate[] {}));
-    }, pageable).map(radarUserMapper::toDto);
+    }, pageable).map(accountUserMapper::toDto);
   }
 
   @Override
   @Transactional(readOnly = true)
-  public Optional<RadarUserDto> findById(Long id) {
-    return radarUserRepository.findById(id).map(radarUserMapper::toDto);
+  public Optional<AccountUserDto> findById(Long id) {
+    return accountUserRepository.findById(id).map(accountUserMapper::toDto);
   }
 
   @Override
   @Transactional(readOnly = true)
-  public Optional<RadarUserDto> findBySub(String sub) {
-    return radarUserRepository.findBySub(sub).map(radarUserMapper::toDto);
+  public Optional<AccountUserDto> findBySub(String sub) {
+    return accountUserRepository.findBySub(sub).map(accountUserMapper::toDto);
   }
 
   @Override
   @Transactional
-  public RadarUserDto save(RadarUserDto radarUserDto) {
-    AccountUser accountUser = radarUserMapper.toEntity(radarUserDto);
+  public AccountUserDto save(AccountUserDto accountUserDto) {
+    AccountUser accountUser = accountUserMapper.toEntity(accountUserDto);
     // Throw exception if violations are exists
     List<ModelError> modelErrorList = new LinkedList<>();
     Set<ConstraintViolation<AccountUser>> constraintViolationSet = validator.validate(accountUser);
@@ -81,12 +81,12 @@ public class RadarUserServiceImpl implements RadarUserService {
       String errorMessage = ValidationException.buildErrorMessage(modelErrorList);
       throw new ValidationException(errorMessage, modelErrorList);
     }
-    return radarUserMapper.toDto(radarUserRepository.save(accountUser));
+    return accountUserMapper.toDto(accountUserRepository.save(accountUser));
   }
 
   @Override
   @Transactional
   public void deleteById(Long id) {
-    radarUserRepository.deleteById(id);
+    accountUserRepository.deleteById(id);
   }
 }

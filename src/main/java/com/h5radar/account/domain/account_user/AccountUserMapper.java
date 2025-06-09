@@ -6,5 +6,5 @@ import com.h5radar.account.config.MapperConfiguration;
 import com.h5radar.account.domain.PlainMapper;
 
 @Mapper(config = MapperConfiguration.class)
-public interface RadarUserMapper extends PlainMapper<AccountUser, RadarUserDto> {
+public interface AccountUserMapper extends PlainMapper<AccountUser, AccountUserDto> {
 }

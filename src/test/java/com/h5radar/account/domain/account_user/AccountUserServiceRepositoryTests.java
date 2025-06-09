@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.h5radar.account.domain.AbstractServiceTests;
 
-class RadarUserServiceRepositoryTests extends AbstractServiceTests {
+class AccountUserServiceRepositoryTests extends AbstractServiceTests {
   @Autowired
-  private RadarUserRepository radarUserRepository;
+  private AccountUserRepository accountUserRepository;
   @Autowired
-  private RadarUserService radarUserService;
+  private AccountUserService accountUserService;
 
   @Test
   @Transactional
@@ -26,11 +26,11 @@ class RadarUserServiceRepositoryTests extends AbstractServiceTests {
         new AccountUser(null, "My sub", "My username"),
         new AccountUser(null, "My new sub", "My new username"));
     for (AccountUser technology : technologyList) {
-      radarUserRepository.save(technology);
+      accountUserRepository.save(technology);
     }
 
     Pageable pageable = PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.ASC, "sub")));
-    Page<RadarUserDto> technologyDtoPage = radarUserService.findAll(null, pageable);
+    Page<AccountUserDto> technologyDtoPage = accountUserService.findAll(null, pageable);
     Assertions.assertEquals(10, technologyDtoPage.getSize());
     Assertions.assertEquals(0, technologyDtoPage.getNumber());
     Assertions.assertEquals(1, technologyDtoPage.getTotalPages());
@@ -44,13 +44,13 @@ class RadarUserServiceRepositoryTests extends AbstractServiceTests {
         new AccountUser(null, "My sub", "My username"),
         new AccountUser(null, "My new sub", "My new username"));
     for (AccountUser technology : technologyList) {
-      radarUserRepository.save(technology);
+      accountUserRepository.save(technology);
     }
 
-    RadarUserFilter radarUserFilter = new RadarUserFilter();
-    radarUserFilter.setSub("");
+    AccountUserFilter accountUserFilter = new AccountUserFilter();
+    accountUserFilter.setSub("");
     Pageable pageable = PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.ASC, "sub")));
-    Page<RadarUserDto> technologyDtoPage = radarUserService.findAll(radarUserFilter, pageable);
+    Page<AccountUserDto> technologyDtoPage = accountUserService.findAll(accountUserFilter, pageable);
     Assertions.assertEquals(10, technologyDtoPage.getSize());
     Assertions.assertEquals(0, technologyDtoPage.getNumber());
     Assertions.assertEquals(1, technologyDtoPage.getTotalPages());
@@ -64,13 +64,13 @@ class RadarUserServiceRepositoryTests extends AbstractServiceTests {
         new AccountUser(null,  "My sub",  "My username"),
         new AccountUser(null, "My new sub",  "My new username"));
     for (AccountUser technology : technologyList) {
-      radarUserRepository.save(technology);
+      accountUserRepository.save(technology);
     }
 
-    RadarUserFilter radarUserFilter = new RadarUserFilter();
-    radarUserFilter.setSub(technologyList.iterator().next().getSub());
+    AccountUserFilter accountUserFilter = new AccountUserFilter();
+    accountUserFilter.setSub(technologyList.iterator().next().getSub());
     Pageable pageable = PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.ASC, "sub")));
-    Page<RadarUserDto> technologyDtoPage = radarUserService.findAll(radarUserFilter, pageable);
+    Page<AccountUserDto> technologyDtoPage = accountUserService.findAll(accountUserFilter, pageable);
     Assertions.assertEquals(10, technologyDtoPage.getSize());
     Assertions.assertEquals(0, technologyDtoPage.getNumber());
     Assertions.assertEquals(1, technologyDtoPage.getTotalPages());
