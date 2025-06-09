@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 import com.h5radar.account.domain.AbstractIntegrationTests;
 
 
-class RadarUserIntegrationTests extends AbstractIntegrationTests {
+class AccountUserIntegrationTests extends AbstractIntegrationTests {
 
   @Autowired
   private AccountUserService accountUserService;
@@ -25,7 +25,7 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
     technologyDto.setUsername("My username");
     technologyDto = accountUserService.save(technologyDto);
 
-    webTestClient.get().uri("/api/v1/radar-users")
+    webTestClient.get().uri("/api/v1/account-users")
         .accept(MediaType.APPLICATION_JSON)
         .exchange()
         .expectStatus().isOk()
@@ -51,7 +51,7 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
     technologyDto.setUsername("My username");
     technologyDto = accountUserService.save(technologyDto);
 
-    webTestClient.get().uri("/api/v1/radar-users/{id}", technologyDto.getId())
+    webTestClient.get().uri("/api/v1/account-users/{id}", technologyDto.getId())
         .accept(MediaType.APPLICATION_JSON)
         .exchange()
         .expectStatus().isOk()
@@ -74,7 +74,7 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    AccountUserDto technologyDto1 = webTestClient.post().uri("/api/v1/radar-users")
+    AccountUserDto technologyDto1 = webTestClient.post().uri("/api/v1/account-users")
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .body(Mono.just(technologyDto), AccountUserDto.class)
@@ -100,7 +100,7 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
     technologyDto.setSub("My sub");
     technologyDto.setUsername("My username");
 
-    AccountUserDto technologyDto1 = webTestClient.post().uri("/api/v1/radar-users")
+    AccountUserDto technologyDto1 = webTestClient.post().uri("/api/v1/account-users")
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .body(Mono.just(technologyDto), AccountUserDto.class)
@@ -127,7 +127,7 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
     technologyDto.setUsername("My username");
     technologyDto = accountUserService.save(technologyDto);
 
-    webTestClient.put().uri("/api/v1/radar-users/{id}", technologyDto.getId())
+    webTestClient.put().uri("/api/v1/account-users/{id}", technologyDto.getId())
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .body(Mono.just(technologyDto), AccountUserDto.class)
@@ -149,7 +149,7 @@ class RadarUserIntegrationTests extends AbstractIntegrationTests {
     technologyDto.setUsername("My username");
     technologyDto = accountUserService.save(technologyDto);
 
-    webTestClient.delete().uri("/api/v1/radar-users/{id}", technologyDto.getId())
+    webTestClient.delete().uri("/api/v1/account-users/{id}", technologyDto.getId())
         .accept(MediaType.APPLICATION_JSON)
         .exchange()
         .expectStatus().isNoContent();
