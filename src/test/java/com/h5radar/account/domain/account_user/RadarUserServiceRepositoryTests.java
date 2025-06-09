@@ -22,10 +22,10 @@ class RadarUserServiceRepositoryTests extends AbstractServiceTests {
   @Test
   @Transactional
   void shouldFindAllTechnologiesWithNullFilter() {
-    List<RadarUser> technologyList = List.of(
-        new RadarUser(null, "My sub", "My username"),
-        new RadarUser(null, "My new sub", "My new username"));
-    for (RadarUser technology : technologyList) {
+    List<AccountUser> technologyList = List.of(
+        new AccountUser(null, "My sub", "My username"),
+        new AccountUser(null, "My new sub", "My new username"));
+    for (AccountUser technology : technologyList) {
       radarUserRepository.save(technology);
     }
 
@@ -40,10 +40,10 @@ class RadarUserServiceRepositoryTests extends AbstractServiceTests {
   @Test
   @Transactional
   void shouldFindAllTechnologiesWithBlankSubFilter() {
-    List<RadarUser> technologyList = List.of(
-        new RadarUser(null, "My sub", "My username"),
-        new RadarUser(null, "My new sub", "My new username"));
-    for (RadarUser technology : technologyList) {
+    List<AccountUser> technologyList = List.of(
+        new AccountUser(null, "My sub", "My username"),
+        new AccountUser(null, "My new sub", "My new username"));
+    for (AccountUser technology : technologyList) {
       radarUserRepository.save(technology);
     }
 
@@ -60,10 +60,10 @@ class RadarUserServiceRepositoryTests extends AbstractServiceTests {
   @Test
   @Transactional
   void shouldFindAllTechnologiesWithTitleFilter() {
-    List<RadarUser> technologyList = List.of(
-        new RadarUser(null,  "My sub",  "My username"),
-        new RadarUser(null, "My new sub",  "My new username"));
-    for (RadarUser technology : technologyList) {
+    List<AccountUser> technologyList = List.of(
+        new AccountUser(null,  "My sub",  "My username"),
+        new AccountUser(null, "My new sub",  "My new username"));
+    for (AccountUser technology : technologyList) {
       radarUserRepository.save(technology);
     }
 

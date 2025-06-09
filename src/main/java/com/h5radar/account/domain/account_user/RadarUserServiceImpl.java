@@ -69,19 +69,19 @@ public class RadarUserServiceImpl implements RadarUserService {
   @Override
   @Transactional
   public RadarUserDto save(RadarUserDto radarUserDto) {
-    RadarUser radarUser = radarUserMapper.toEntity(radarUserDto);
+    AccountUser accountUser = radarUserMapper.toEntity(radarUserDto);
     // Throw exception if violations are exists
     List<ModelError> modelErrorList = new LinkedList<>();
-    Set<ConstraintViolation<RadarUser>> constraintViolationSet = validator.validate(radarUser);
+    Set<ConstraintViolation<AccountUser>> constraintViolationSet = validator.validate(accountUser);
     if (!constraintViolationSet.isEmpty()) {
-      for (ConstraintViolation<RadarUser> constraintViolation : constraintViolationSet) {
+      for (ConstraintViolation<AccountUser> constraintViolation : constraintViolationSet) {
         modelErrorList.add(new ModelError(constraintViolation.getMessageTemplate(), constraintViolation.getMessage(),
             constraintViolation.getPropertyPath().toString()));
       }
       String errorMessage = ValidationException.buildErrorMessage(modelErrorList);
       throw new ValidationException(errorMessage, modelErrorList);
     }
-    return radarUserMapper.toDto(radarUserRepository.save(radarUser));
+    return radarUserMapper.toDto(radarUserRepository.save(accountUser));
   }
 
   @Override

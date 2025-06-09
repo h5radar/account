@@ -20,7 +20,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldSaveRadarUserWithAllFields() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub("My sub");
     technology.setUsername("My username");
 
@@ -35,7 +35,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFindSavedRadarUserById() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub("MY");
     technology.setUsername("Very good username for RadarUser");
 
@@ -49,7 +49,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFailOnNullSub() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setUsername("My username");
 
     Assertions.assertNull(technology.getId());
@@ -67,7 +67,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFailOnEmptySub() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub("");
     technology.setUsername("My username");
 
@@ -87,7 +87,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFailOnWhiteSpaceSub() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub(" ");
     technology.setUsername("My username");
 
@@ -107,7 +107,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFailOnNullUsername() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub("My sub");
 
     Assertions.assertNull(technology.getId());
@@ -125,7 +125,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFailOnEmptyUsername() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub("My sub");
     technology.setUsername("");
 
@@ -145,7 +145,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFailOnWhiteSpaceUsername() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub("My sub");
     technology.setUsername(" ");
 
@@ -165,7 +165,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFailToSaveRadarUserDueToSubWithRightWhiteSpace() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub("My new test RadarUser ");
 
     Assertions.assertNull(technology.getId());
@@ -175,7 +175,7 @@ class RadarUserRepositoryTests extends AbstractRepositoryTests {
 
   @Test
   void shouldFailToSaveRadarUserDueToSubWithLeftWhiteSpace() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setSub(" My new test RadarUser");
 
     Assertions.assertNull(technology.getId());

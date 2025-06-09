@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RadarUserRepository extends JpaRepository<RadarUser, Long>,
-    JpaSpecificationExecutor<RadarUser> {
-  Optional<RadarUser> findBySub(String sub);
+public interface RadarUserRepository extends JpaRepository<AccountUser, Long>,
+    JpaSpecificationExecutor<AccountUser> {
+  Optional<AccountUser> findBySub(String sub);
 }

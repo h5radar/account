@@ -33,12 +33,12 @@ class RadarUserServiceTests extends AbstractServiceTests {
 
   @Test
   void shouldFindAllTechnologies() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
     technology.setUsername("My username");
 
-    List<RadarUser> technologyList = List.of(technology);
+    List<AccountUser> technologyList = List.of(technology);
     Mockito.when(radarUserRepository.findAll(any(Sort.class))).thenReturn(technologyList);
 
     Collection<RadarUserDto> technologyDtoCollection = radarUserService.findAll();
@@ -50,14 +50,14 @@ class RadarUserServiceTests extends AbstractServiceTests {
 
   @Test
   void shouldFindAllTechnologiesWithEmptyFilter() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
     technology.setUsername("My username");
 
-    List<RadarUser> technologyList = List.of(technology);
-    Page<RadarUser> page = new PageImpl<>(technologyList);
-    Mockito.when(radarUserRepository.findAll(ArgumentMatchers.<Specification<RadarUser>>any(), any(Pageable.class)))
+    List<AccountUser> technologyList = List.of(technology);
+    Page<AccountUser> page = new PageImpl<>(technologyList);
+    Mockito.when(radarUserRepository.findAll(ArgumentMatchers.<Specification<AccountUser>>any(), any(Pageable.class)))
         .thenReturn(page);
 
     RadarUserFilter technologyFilter = new RadarUserFilter();
@@ -76,7 +76,7 @@ class RadarUserServiceTests extends AbstractServiceTests {
 
   @Test
   void shouldFindByIdRadarUser() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
     technology.setUsername("My username");
@@ -94,7 +94,7 @@ class RadarUserServiceTests extends AbstractServiceTests {
 
   @Test
   void shouldfindBySubRadarUser() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
     technology.setUsername("My username");
@@ -112,7 +112,7 @@ class RadarUserServiceTests extends AbstractServiceTests {
 
   @Test
   void shouldSaveRadarUser() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
     technology.setUsername("My username");
@@ -129,7 +129,7 @@ class RadarUserServiceTests extends AbstractServiceTests {
 
   @Test
   void shouldFailToSaveRadarUserDueToTitleWithWhiteSpace() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub(" My sub ");
     technology.setUsername("My username");
@@ -142,7 +142,7 @@ class RadarUserServiceTests extends AbstractServiceTests {
 
   @Test
   void shouldDeleteRadarUser() {
-    final RadarUser technology = new RadarUser();
+    final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
     technology.setUsername("My username");

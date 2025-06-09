@@ -26,7 +26,7 @@ import com.h5radar.account.domain.AbstractAuditable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class RadarUser extends AbstractAuditable {
+public class AccountUser extends AbstractAuditable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
