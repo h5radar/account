@@ -1,4 +1,4 @@
-package com.h5radar.account.domain.application;
+package com.h5radar.account.domain.account_app;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "Application version API")
-@RequestMapping("/api/v1/application/version")
+@RequestMapping("/api/v1/account-app/version")
 @RequiredArgsConstructor
 @EnableConfigurationProperties(Version.class)
 public class VersionController {
 
   private final Version version;
 
-  @GetMapping("/show")
+  @GetMapping("")
   public Version show() {
     return version;
   }

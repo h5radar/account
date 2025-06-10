@@ -1,4 +1,4 @@
-package com.h5radar.account.domain.application;
+package com.h5radar.account.domain.account_app;
 
 import static org.hamcrest.Matchers.hasKey;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -18,7 +18,7 @@ public class VersionControllerTests extends AbstractControllerTests {
   @Test
   @WithAnonymousUser
   public void shouldShowVersion() throws Exception {
-    mockMvc.perform(get("/api/v1/application/version/show").contentType(APPLICATION_JSON))
+    mockMvc.perform(get("/api/v1/account-app/version").contentType(APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isMap())
         .andExpect(jsonPath("$").value(hasKey("groupId")))
