@@ -64,12 +64,12 @@ public class AuthRequestInterceptor implements HandlerInterceptor {
     try {
       accountUserDto = accountUserService.save(accountUserDto);
       Long accountUserId = accountUserDto == null ? 0 : accountUserDto.getId();
-      request.setAttribute(AccountConstants.RARDAR_USER_ID_ATTRIBUTE_NAME, accountUserId);
+      request.setAttribute(AccountConstants.ACCOUNT_USER_ID_ATTRIBUTE_NAME, accountUserId);
     } catch (DataIntegrityViolationException exception) {
       if (exception.getMessage().toLowerCase().contains(ACCOUNT_USERS_SUB_CONSTRAINTS)) {
         Optional<AccountUserDto> accountUserDtoOptional =  accountUserService.findBySub(accountUserDto.getSub());
         if (accountUserDtoOptional.isPresent()) {
-          request.setAttribute(AccountConstants.RARDAR_USER_ID_ATTRIBUTE_NAME, accountUserDtoOptional.get().getId());
+          request.setAttribute(AccountConstants.ACCOUNT_USER_ID_ATTRIBUTE_NAME, accountUserDtoOptional.get().getId());
           return true;
         }
       }
