@@ -29,9 +29,6 @@ import com.h5radar.account.domain.AbstractControllerTests;
 @WebMvcTest(AccountUserController.class)
 public class AccountUserControllerTests extends AbstractControllerTests {
 
-  @MockitoBean
-  private AccountUserService accountUserService;
-
   @Test
   @WithMockUser(value = "My sub")
   public void shouldGetAccountUsers() throws Exception {

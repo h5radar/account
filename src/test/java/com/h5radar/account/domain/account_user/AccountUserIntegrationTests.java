@@ -12,9 +12,6 @@ import com.h5radar.account.domain.AbstractIntegrationTests;
 
 class AccountUserIntegrationTests extends AbstractIntegrationTests {
 
-  @Autowired
-  private AccountUserService accountUserService;
-
   @Test
   @WithMockUser(value = "My sub")
   public void shouldGetAccountUsers() {
