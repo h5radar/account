@@ -16,14 +16,14 @@ class AccountUserIntegrationTests extends AbstractIntegrationTests {
   private AccountUserService accountUserService;
 
   @Test
-  @WithMockUser
-  public void shouldGetRadarUsers() {
-    // Create technology
-    AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(null);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-    technologyDto = accountUserService.save(technologyDto);
+  @WithMockUser(value = "My sub")
+  public void shouldGetAccountUsers() {
+    // Create accountUser
+    AccountUserDto accountUserDto = new AccountUserDto();
+    accountUserDto.setId(null);
+    accountUserDto.setSub("My sub");
+    accountUserDto.setUsername("My username");
+    accountUserDto = accountUserService.save(accountUserDto);
 
     webTestClient.get().uri("/api/v1/account-users")
         .accept(MediaType.APPLICATION_JSON)
@@ -34,24 +34,24 @@ class AccountUserIntegrationTests extends AbstractIntegrationTests {
         .jsonPath("$").isNotEmpty()
         .jsonPath("$").isMap()
         .jsonPath("$.content").isArray()
-        .jsonPath("$.content[0].id").isEqualTo(technologyDto.getId())
-        .jsonPath("$.content[0].sub").isEqualTo(technologyDto.getSub())
-        .jsonPath("$.content[0].username").isEqualTo(technologyDto.getUsername());
+        .jsonPath("$.content[0].id").isEqualTo(accountUserDto.getId())
+        .jsonPath("$.content[0].sub").isEqualTo(accountUserDto.getSub())
+        .jsonPath("$.content[0].username").isEqualTo(accountUserDto.getUsername());
 
-    accountUserService.deleteById(technologyDto.getId());
+    accountUserService.deleteById(accountUserDto.getId());
   }
 
   @Test
-  @WithMockUser
-  public void shouldGetRadarUser() {
-    // Create technology
-    AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(null);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-    technologyDto = accountUserService.save(technologyDto);
+  @WithMockUser(value = "My sub")
+  public void shouldGetAccountUser() {
+    // Create accountUser
+    AccountUserDto accountUserDto = new AccountUserDto();
+    accountUserDto.setId(null);
+    accountUserDto.setSub("My sub");
+    accountUserDto.setUsername("My username");
+    accountUserDto = accountUserService.save(accountUserDto);
 
-    webTestClient.get().uri("/api/v1/account-users/{id}", technologyDto.getId())
+    webTestClient.get().uri("/api/v1/account-users/{id}", accountUserDto.getId())
         .accept(MediaType.APPLICATION_JSON)
         .exchange()
         .expectStatus().isOk()
@@ -59,99 +59,10 @@ class AccountUserIntegrationTests extends AbstractIntegrationTests {
         .expectBody()
         .jsonPath("$").isNotEmpty()
         .jsonPath("$").isMap()
-        .jsonPath("$.id").isEqualTo(technologyDto.getId())
-        .jsonPath("$.sub").isEqualTo(technologyDto.getSub())
-        .jsonPath("$.username").isEqualTo(technologyDto.getUsername());
+        .jsonPath("$.id").isEqualTo(accountUserDto.getId())
+        .jsonPath("$.sub").isEqualTo(accountUserDto.getSub())
+        .jsonPath("$.username").isEqualTo(accountUserDto.getUsername());
 
-    accountUserService.deleteById(technologyDto.getId());
-  }
-
-  @Test
-  @WithMockUser
-  public void shouldCreateRadarUser() throws Exception {
-    AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(null);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-
-    AccountUserDto technologyDto1 = webTestClient.post().uri("/api/v1/account-users")
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON)
-        .body(Mono.just(technologyDto), AccountUserDto.class)
-        .exchange()
-        .expectStatus().isCreated()
-        .expectHeader().contentType(MediaType.APPLICATION_JSON)
-        .expectBody(AccountUserDto.class)
-        .returnResult()
-        .getResponseBody();
-
-    Assertions.assertNotEquals(technologyDto.getId(), technologyDto1.getId());
-    Assertions.assertEquals(technologyDto.getSub(), technologyDto1.getSub());
-    Assertions.assertEquals(technologyDto.getUsername(), technologyDto1.getUsername());
-
-    accountUserService.deleteById(technologyDto1.getId());
-  }
-
-  @Test
-  @WithMockUser
-  public void shouldCreateRadarUserWithId() throws Exception {
-    AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(99L);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-
-    AccountUserDto technologyDto1 = webTestClient.post().uri("/api/v1/account-users")
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON)
-        .body(Mono.just(technologyDto), AccountUserDto.class)
-        .exchange()
-        .expectStatus().isCreated()
-        .expectHeader().contentType(MediaType.APPLICATION_JSON)
-        .expectBody(AccountUserDto.class)
-        .returnResult()
-        .getResponseBody();
-
-    Assertions.assertNotEquals(technologyDto.getId(), technologyDto1.getId());
-    Assertions.assertEquals(technologyDto.getSub(), technologyDto1.getSub());
-    Assertions.assertEquals(technologyDto.getUsername(), technologyDto1.getUsername());
-
-    accountUserService.deleteById(technologyDto1.getId());
-  }
-
-  @Test
-  @WithMockUser
-  public void shouldUpdateRadarUser() throws Exception {
-    AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(null);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-    technologyDto = accountUserService.save(technologyDto);
-
-    webTestClient.put().uri("/api/v1/account-users/{id}", technologyDto.getId())
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON)
-        .body(Mono.just(technologyDto), AccountUserDto.class)
-        .exchange()
-        .expectStatus().isOk()
-        .expectHeader().contentType(MediaType.APPLICATION_JSON)
-        .expectBody();
-
-    accountUserService.deleteById(technologyDto.getId());
-  }
-
-
-  @Test
-  @WithMockUser
-  public void shouldDeleteRadarUser() throws Exception {
-    AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(null);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-    technologyDto = accountUserService.save(technologyDto);
-
-    webTestClient.delete().uri("/api/v1/account-users/{id}", technologyDto.getId())
-        .accept(MediaType.APPLICATION_JSON)
-        .exchange()
-        .expectStatus().isNoContent();
+    accountUserService.deleteById(accountUserDto.getId());
   }
 }

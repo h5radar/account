@@ -71,18 +71,18 @@ server:
 
 spring:
   application:
-    name: H5Radar
+    name: H5Account
   data:
     jpa:
       repositories:
         bootstrap-mode: default
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://127.0.0.1:5432/radar
-    username: radar_user
+    url: jdbc:postgresql://127.0.0.1:5432/account
+    username: account_user
     password: secret
     hikari:
-      poolName: radar-pool
+      poolName: account-pool
       auto-commit: false
       minimum-idle: 10
       maximum-pool-size: 100

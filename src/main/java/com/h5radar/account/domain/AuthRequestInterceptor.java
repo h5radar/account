@@ -1,4 +1,4 @@
-package com.h5radar.radar.domain;
+package com.h5radar.account.domain;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,9 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.h5radar.radar.RadarConstants;
-import com.h5radar.radar.domain.radar_user.RadarUserDto;
-import com.h5radar.radar.domain.radar_user.RadarUserService;
+import com.h5radar.account.AccountConstants;
+import com.h5radar.account.domain.account_user.AccountUserDto;
+import com.h5radar.account.domain.account_user.AccountUserService;
 
 
 @Component
@@ -28,18 +28,18 @@ public class AuthRequestInterceptor implements HandlerInterceptor {
    */
   protected static final String BEARER = "Bearer ";
   /*
-   * Radar user sub constraint name
+   * Account user sub constraint name
    */
-  private static final String RADAR_USERS_SUB_CONSTRAINTS = "uc_radar_users_sub";
+  private static final String ACCOUNT_USERS_SUB_CONSTRAINTS = "uc_account_users_sub";
 
 
   @Autowired
-  private RadarUserService radarUserService;
+  private AccountUserService accountUserService;
 
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    RadarUserDto radarUserDto = new RadarUserDto();
+    AccountUserDto accountUserDto = new AccountUserDto();
     String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
     if (authHeader != null && authHeader.startsWith(BEARER)) {
       // Get payload section from jwt token
@@ -48,28 +48,28 @@ public class AuthRequestInterceptor implements HandlerInterceptor {
       Base64.Decoder decoder = Base64.getUrlDecoder();
       String payload = new String(decoder.decode(chunks[1]));
 
-      // Save radarUser and set id as attribute
+      // Save accountUser and set id as attribute
       ObjectMapper objectMapper = new ObjectMapper();
       JsonNode rootNode = objectMapper.readTree(payload);
-      radarUserDto.setSub(rootNode.get("sub").asText());
-      radarUserDto.setUsername(rootNode.get("preferred_username").asText());
+      accountUserDto.setSub(rootNode.get("sub").asText());
+      accountUserDto.setUsername(rootNode.get("preferred_username").asText());
     } else {
       // This code primary for tests (context is set based on @WithMockUser)
       SecurityContext securityContext = SecurityContextHolder.getContext();
       Authentication auth = securityContext.getAuthentication();
-      radarUserDto.setSub(auth.getName());
-      radarUserDto.setUsername(auth.getName());
+      accountUserDto.setSub(auth.getName());
+      accountUserDto.setUsername(auth.getName());
     }
 
     try {
-      radarUserDto = radarUserService.save(radarUserDto);
-      Long radarUserId = radarUserDto == null ? 0 : radarUserDto.getId();
-      request.setAttribute(RadarConstants.RARDAR_USER_ID_ATTRIBUTE_NAME, radarUserId);
+      accountUserDto = accountUserService.save(accountUserDto);
+      Long accountUserId = accountUserDto == null ? 0 : accountUserDto.getId();
+      request.setAttribute(AccountConstants.RARDAR_USER_ID_ATTRIBUTE_NAME, accountUserId);
     } catch (DataIntegrityViolationException exception) {
-      if (exception.getMessage().toLowerCase().contains(RADAR_USERS_SUB_CONSTRAINTS)) {
-        Optional<RadarUserDto> radarUserDtoOptional =  radarUserService.findBySub(radarUserDto.getSub());
-        if (radarUserDtoOptional.isPresent()) {
-          request.setAttribute(RadarConstants.RARDAR_USER_ID_ATTRIBUTE_NAME, radarUserDtoOptional.get().getId());
+      if (exception.getMessage().toLowerCase().contains(ACCOUNT_USERS_SUB_CONSTRAINTS)) {
+        Optional<AccountUserDto> accountUserDtoOptional =  accountUserService.findBySub(accountUserDto.getSub());
+        if (accountUserDtoOptional.isPresent()) {
+          request.setAttribute(AccountConstants.RARDAR_USER_ID_ATTRIBUTE_NAME, accountUserDtoOptional.get().getId());
           return true;
         }
       }

@@ -6,7 +6,7 @@ logging:
         security: debug
 spring:
   datasource:
-    url: jdbc:h2:mem:radar;MODE=PostgreSQL
+    url: jdbc:h2:mem:account;MODE=PostgreSQL
     username: h5radar
     password: secret
   devtools:

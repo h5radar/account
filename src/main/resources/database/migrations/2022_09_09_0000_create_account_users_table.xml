@@ -6,17 +6,17 @@
 
     <include file="../properties.yml" relativeToChangelogFile="true"/>
 
-    <changeSet id="create_radar_users_table" author="h5radar">
-        <createTable tableName="radar_users" remarks="Holds information about radar_users.">
-            <column name="id" type="${bigint.type}" remarks="Radar user id, primary key." autoIncrement="true"
+    <changeSet id="create_account_users_table" author="h5radar">
+        <createTable tableName="account_users" remarks="Holds information about account_users.">
+            <column name="id" type="${bigint.type}" remarks="Account user id, primary key." autoIncrement="true"
                     generationType="ALWAYS">
-                <constraints primaryKey="true" primaryKeyName="pk_radar_users_id" nullable="false"/>
+                <constraints primaryKey="true" primaryKeyName="pk_account_users_id" nullable="false"/>
             </column>
-            <column name="sub" type="${text.type}" remarks="radar user subject, unique.">
-                <constraints unique="true" uniqueConstraintName="uc_radar_users_sub" nullable="false"/>
+            <column name="sub" type="${text.type}" remarks="account user subject, unique.">
+                <constraints unique="true" uniqueConstraintName="uc_account_users_sub" nullable="false"/>
             </column>
-            <column name="username" type="${text.type}" remarks="radar user name, unique.">
-                <constraints unique="true" uniqueConstraintName="uc_radar_users_username" nullable="false"/>
+            <column name="username" type="${text.type}" remarks="account user name, unique.">
+                <constraints unique="true" uniqueConstraintName="uc_account_users_username" nullable="false"/>
             </column>
             <column name="created_by" type="${user.type}" remarks="User who created the record.">
                 <constraints nullable="false"/>
@@ -34,12 +34,12 @@
         </createTable>
         <!-- current Liquibase ignores checkConstraint attribute -->
         <sql>
-            ALTER TABLE radar_users
-                ADD CONSTRAINT ck_radar_users_sub_trim CHECK (trim(sub) = sub)
+            ALTER TABLE account_users
+                ADD CONSTRAINT ck_account_users_sub_trim CHECK (trim(sub) = sub)
         </sql>
         <sql>
-            ALTER TABLE radar_users
-                ADD CONSTRAINT ck_radar_users_username_trim CHECK (trim(username) = username)
+            ALTER TABLE account_users
+                ADD CONSTRAINT ck_account_users_username_trim CHECK (trim(username) = username)
         </sql>
     </changeSet>
 </databaseChangeLog>
