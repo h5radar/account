@@ -19,7 +19,7 @@ class AccountUserRepositoryTests extends AbstractRepositoryTests {
   private AccountUserRepository accountUserRepository;
 
   @Test
-  void shouldSaveRadarUserWithAllFields() {
+  void shouldSaveAccountUserWithAllFields() {
     final AccountUser technology = new AccountUser();
     technology.setSub("My sub");
     technology.setUsername("My username");
@@ -34,10 +34,10 @@ class AccountUserRepositoryTests extends AbstractRepositoryTests {
   }
 
   @Test
-  void shouldFindSavedRadarUserById() {
+  void shouldFindSavedAccountUserById() {
     final AccountUser technology = new AccountUser();
     technology.setSub("MY");
-    technology.setUsername("Very good username for RadarUser");
+    technology.setUsername("Very good username for AccountUser");
 
     Assertions.assertNull(technology.getId());
     accountUserRepository.saveAndFlush(technology);
@@ -164,9 +164,9 @@ class AccountUserRepositoryTests extends AbstractRepositoryTests {
   }
 
   @Test
-  void shouldFailToSaveRadarUserDueToSubWithRightWhiteSpace() {
+  void shouldFailToSaveAccountUserDueToSubWithRightWhiteSpace() {
     final AccountUser technology = new AccountUser();
-    technology.setSub("My new test RadarUser ");
+    technology.setSub("My new test AccountUser ");
 
     Assertions.assertNull(technology.getId());
     assertThatThrownBy(() -> accountUserRepository.saveAndFlush(technology))
@@ -174,9 +174,9 @@ class AccountUserRepositoryTests extends AbstractRepositoryTests {
   }
 
   @Test
-  void shouldFailToSaveRadarUserDueToSubWithLeftWhiteSpace() {
+  void shouldFailToSaveAccountUserDueToSubWithLeftWhiteSpace() {
     final AccountUser technology = new AccountUser();
-    technology.setSub(" My new test RadarUser");
+    technology.setSub(" My new test AccountUser");
 
     Assertions.assertNull(technology.getId());
     assertThatThrownBy(() -> accountUserRepository.saveAndFlush(technology))

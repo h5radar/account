@@ -70,12 +70,12 @@ class AccountUserServiceTests extends AbstractServiceTests {
     Assertions.assertEquals(technologyDtoPage.iterator().next().getSub(), technology.getSub());
     Assertions.assertEquals(technologyDtoPage.iterator().next().getUsername(), technology.getUsername());
 
-    // Mockito.verify(radarUserRepository).findAll(
+    // Mockito.verify(accountUserRepository).findAll(
     //     Specification.allOf((root, query, criteriaBuilder) -> null), pageable);
   }
 
   @Test
-  void shouldFindByIdRadarUser() {
+  void shouldFindByIdAccountUser() {
     final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
@@ -93,7 +93,7 @@ class AccountUserServiceTests extends AbstractServiceTests {
   }
 
   @Test
-  void shouldfindBySubRadarUser() {
+  void shouldfindBySubAccountUser() {
     final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
@@ -111,7 +111,7 @@ class AccountUserServiceTests extends AbstractServiceTests {
   }
 
   @Test
-  void shouldSaveRadarUser() {
+  void shouldSaveAccountUser() {
     final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");
@@ -128,7 +128,7 @@ class AccountUserServiceTests extends AbstractServiceTests {
   }
 
   @Test
-  void shouldFailToSaveRadarUserDueToTitleWithWhiteSpace() {
+  void shouldFailToSaveAccountUserDueToTitleWithWhiteSpace() {
     final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub(" My sub ");
@@ -141,7 +141,7 @@ class AccountUserServiceTests extends AbstractServiceTests {
   }
 
   @Test
-  void shouldDeleteRadarUser() {
+  void shouldDeleteAccountUser() {
     final AccountUser technology = new AccountUser();
     technology.setId(10L);
     technology.setSub("My sub");

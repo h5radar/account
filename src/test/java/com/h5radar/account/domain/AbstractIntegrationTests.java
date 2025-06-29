@@ -10,12 +10,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.h5radar.account.AccountApplication;
+import com.h5radar.account.domain.account_user.AccountUserService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = AccountApplication.class)
 public abstract class AbstractIntegrationTests extends AbstractAnyTests {
 
   // @Autowired
   protected WebTestClient webTestClient;
+
+  @Autowired
+  protected AccountUserService accountUserService;
 
   @Autowired
   public void setWebApplicationContext(final WebApplicationContext context) {

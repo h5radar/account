@@ -19,7 +19,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.h5radar.account.domain.AbstractAuditable;
 
 @Entity
-@Table(name = "radar_users")
+@Table(name = "account_users")
 @DynamicUpdate
 @Getter
 @Setter

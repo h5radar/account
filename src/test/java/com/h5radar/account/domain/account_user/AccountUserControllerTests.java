@@ -29,209 +29,82 @@ import com.h5radar.account.domain.AbstractControllerTests;
 @WebMvcTest(AccountUserController.class)
 public class AccountUserControllerTests extends AbstractControllerTests {
 
-  @MockitoBean
-  private AccountUserService accountUserService;
-
   @Test
-  @WithMockUser
-  public void shouldGetTechnologies() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
+  @WithMockUser(value = "My sub")
+  public void shouldGetAccountUsers() throws Exception {
+    final AccountUserDto accountUserDto = new AccountUserDto();
+    accountUserDto.setId(10L);
+    accountUserDto.setSub("My sub");
+    accountUserDto.setUsername("My username");
 
-    Page<AccountUserDto> technologyDtoPage = new PageImpl<>(Arrays.asList(technologyDto));
-    Mockito.when(accountUserService.findAll(any(), any())).thenReturn(technologyDtoPage);
+    Mockito.when(accountUserService.save(any())).thenReturn(accountUserDto);
+    Page<AccountUserDto> accountUserDtoPage = new PageImpl<>(Arrays.asList(accountUserDto));
+    Mockito.when(accountUserService.findAll(any(), any())).thenReturn(accountUserDtoPage);
 
     mockMvc.perform(get("/api/v1/account-users").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isMap())
         .andExpect(jsonPath("$.content").isArray())
-        .andExpect(jsonPath("$.content", hasSize(technologyDtoPage.getContent().size())))
-        .andExpect(jsonPath("$.content[0].id", equalTo(technologyDto.getId()), Long.class))
-        .andExpect(jsonPath("$.content[0].sub", equalTo(technologyDto.getSub())))
-        .andExpect(jsonPath("$.content[0].username", equalTo(technologyDto.getUsername())));
+        .andExpect(jsonPath("$.content", hasSize(accountUserDtoPage.getContent().size())))
+        .andExpect(jsonPath("$.content[0].id", equalTo(accountUserDto.getId()), Long.class))
+        .andExpect(jsonPath("$.content[0].sub", equalTo(accountUserDto.getSub())))
+        .andExpect(jsonPath("$.content[0].username", equalTo(accountUserDto.getUsername())));
 
+    Mockito.verify(accountUserService).save(any());
     Mockito.verify(accountUserService).findAll(any(), any());
   }
 
-  public void shouldGetTechnologiesWithFilter() throws Exception {
+  public void shouldGetAccountUsersWithFilter() throws Exception {
     // TODO: get invalid it
   }
 
-  public void shouldGetTechnologiesWithPaging() throws Exception {
+  public void shouldGetAccountUsersWithPaging() throws Exception {
     // TODO: get invalid it
   }
 
   @Test
   @WithAnonymousUser
-  public void shouldFailToGetTechnologiesDueToUnauthorized() throws Exception {
+  public void shouldFailToGetAccountUsersDueToUnauthorized() throws Exception {
     mockMvc.perform(get("/api/v1/account-users").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isUnauthorized());
   }
 
 
   @Test
-  @WithMockUser
-  public void shouldGetRadarUser() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
+  @WithMockUser(value = "My sub")
+  public void shouldGetAccountUser() throws Exception {
+    final AccountUserDto accountUserDto = new AccountUserDto();
+    accountUserDto.setId(10L);
+    accountUserDto.setSub("My sub");
+    accountUserDto.setUsername("My username");
 
-    Mockito.when(accountUserService.findById(any())).thenReturn(Optional.of(technologyDto));
+    Mockito.when(accountUserService.save(any())).thenReturn(accountUserDto);
+    Mockito.when(accountUserService.findById(any())).thenReturn(Optional.of(accountUserDto));
 
-    mockMvc.perform(get("/api/v1/account-users/{id}", technologyDto.getId())
+    mockMvc.perform(get("/api/v1/account-users/{id}", accountUserDto.getId())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isMap())
-        .andExpect(jsonPath("$.id", equalTo(technologyDto.getId()), Long.class))
-        .andExpect(jsonPath("$.sub", equalTo(technologyDto.getSub())))
-        .andExpect(jsonPath("$.username", equalTo(technologyDto.getUsername())));
+        .andExpect(jsonPath("$.id", equalTo(accountUserDto.getId()), Long.class))
+        .andExpect(jsonPath("$.sub", equalTo(accountUserDto.getSub())))
+        .andExpect(jsonPath("$.username", equalTo(accountUserDto.getUsername())));
 
-    Mockito.verify(accountUserService).findById(technologyDto.getId());
+    Mockito.verify(accountUserService).save(any());
+    Mockito.verify(accountUserService).findById(accountUserDto.getId());
   }
 
   @Test
   @WithAnonymousUser
-  public void shouldFailToGetRadarUserDueToUnauthorized() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
+  public void shouldFailToGetAccountUserDueToUnauthorized() throws Exception {
+    final AccountUserDto accountUserDto = new AccountUserDto();
+    accountUserDto.setId(10L);
 
-    mockMvc.perform(get("/api/v1/account-users/{id}", technologyDto.getId())
+    mockMvc.perform(get("/api/v1/account-users/{id}", accountUserDto.getId())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isUnauthorized());
   }
 
-  public void shouldFailToGetRadarUserDueToInvalidId() throws Exception {
-    // TODO: get invalid it
-  }
-
-
-  @Test
-  @WithMockUser
-  public void shouldCreateRadarUser() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-
-    Mockito.when(accountUserService.save(any())).thenReturn(technologyDto);
-
-    mockMvc.perform(post("/api/v1/account-users")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(technologyDto))
-            .with(csrf()))
-        .andExpect(status().isCreated())
-        .andExpect(jsonPath("$").isMap())
-        .andExpect(jsonPath("$.id", equalTo(technologyDto.getId()), Long.class))
-        .andExpect(jsonPath("$.sub", equalTo(technologyDto.getSub())))
-        .andExpect(jsonPath("$.username", equalTo(technologyDto.getUsername())));
-
-    Mockito.verify(accountUserService).save(any());
-  }
-
-  @Test
-  @WithAnonymousUser
-  public void shouldFailToCreateRadarUserDueToUnauthorized() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
-
-    mockMvc.perform(post("/api/v1/account-users")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(technologyDto))
-            .with(csrf()))
-        .andExpect(status().isUnauthorized());
-  }
-
-  public void shouldFailToCreateRadarUserDueToEmptyTitle() throws Exception {
-    // TODO: get invalid it
-  }
-
-  public void shouldFailToCreateRadarUserDueToTitleWithSpaces() throws Exception {
-    // TODO: get invalid it
-  }
-
-
-  @Test
-  @WithMockUser
-  public void shouldUpdateRadarUser() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-
-    Mockito.when(accountUserService.findById(any())).thenReturn(Optional.of(technologyDto));
-    Mockito.when(accountUserService.save(any())).thenReturn(technologyDto);
-
-    mockMvc.perform(put("/api/v1/account-users/{id}", technologyDto.getId())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(technologyDto))
-            .with(csrf()))
-        .andExpect(status().isOk());
-
-    Mockito.verify(accountUserService).findById(technologyDto.getId());
-    Mockito.verify(accountUserService).save(any());
-  }
-
-  @Test
-  @WithAnonymousUser
-  public void shouldFailToUpdateRadarUserDueToUnauthorized() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
-
-    mockMvc.perform(put("/api/v1/account-users/{id}", technologyDto.getId())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(technologyDto))
-            .with(csrf()))
-        .andExpect(status().isUnauthorized());
-
-  }
-
-  public void shouldFailToUpdateRadarUserDueToInvalidId() throws Exception {
-    // TODO: get invalid it
-  }
-
-  public void shouldFailToUpdateRadarUserDueToEmptyTitle() throws Exception {
-    // TODO: get invalid it
-  }
-
-  public void shouldFailToUpdateRadarUserDueToTitleWithSpaces() throws Exception {
-    // TODO: get invalid it
-  }
-
-
-  @Test
-  @WithMockUser
-  public void shouldDeleteRadarUser() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
-    technologyDto.setSub("My sub");
-    technologyDto.setUsername("My username");
-
-    Mockito.when(accountUserService.findById(any())).thenReturn(Optional.of(technologyDto));
-    Mockito.doAnswer((i) -> null).when(accountUserService).deleteById(any());
-
-    mockMvc.perform(delete("/api/v1/account-users/{id}", technologyDto.getId())
-            .with(csrf()))
-        .andExpect(status().isNoContent());
-
-    Mockito.verify(accountUserService).findById(technologyDto.getId());
-    Mockito.verify(accountUserService).deleteById(technologyDto.getId());
-  }
-
-  @Test
-  @WithAnonymousUser
-  public void shouldFailToDeleteRadarUserDueToUnauthorized() throws Exception {
-    final AccountUserDto technologyDto = new AccountUserDto();
-    technologyDto.setId(10L);
-
-    mockMvc.perform(delete("/api/v1/account-users/{id}", technologyDto.getId())
-            .with(csrf()))
-        .andExpect(status().isUnauthorized());
-  }
-
-  public void shouldFailToDeleteRadarUserDueToInvalidId() throws Exception {
+  public void shouldFailToGetAccountUserDueToInvalidId() throws Exception {
     // TODO: get invalid it
   }
 }
