@@ -1,4 +1,4 @@
-package com.h5radar.account.domain.account_user;
+package com.h5radar.account.account_user;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;

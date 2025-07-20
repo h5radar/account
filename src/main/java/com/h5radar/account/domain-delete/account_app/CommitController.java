@@ -1,4 +1,4 @@
-package com.h5radar.account.domain.account_app;
+package com.h5radar.account.account_app;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
