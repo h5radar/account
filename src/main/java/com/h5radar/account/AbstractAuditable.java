@@ -1,4 +1,4 @@
-package com.h5radar.account.domain;
+package com.h5radar.account;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

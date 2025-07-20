@@ -18,8 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.h5radar.account.domain.ModelError;
-import com.h5radar.account.domain.ValidationException;
+import com.h5radar.account.ModelError;
+import com.h5radar.account.ValidationException;
 
 @RequiredArgsConstructor
 @Service

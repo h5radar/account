@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.h5radar.account.domain.AbstractServiceTests;
+import com.h5radar.account.AbstractServiceTests;
 
 class AccountUserServiceRepositoryTests extends AbstractServiceTests {
   @Autowired

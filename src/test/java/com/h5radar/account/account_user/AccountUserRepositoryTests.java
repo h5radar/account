@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.h5radar.account.domain.AbstractRepositoryTests;
+import com.h5radar.account.AbstractRepositoryTests;
 
 class AccountUserRepositoryTests extends AbstractRepositoryTests {
 

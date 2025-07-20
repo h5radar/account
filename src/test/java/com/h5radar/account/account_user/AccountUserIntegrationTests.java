@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import reactor.core.publisher.Mono;
 
-import com.h5radar.account.domain.AbstractIntegrationTests;
+import com.h5radar.account.AbstractIntegrationTests;
 
 
 class AccountUserIntegrationTests extends AbstractIntegrationTests {

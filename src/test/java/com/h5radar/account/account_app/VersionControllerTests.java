@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 
-import com.h5radar.account.domain.AbstractControllerTests;
+import com.h5radar.account.AbstractControllerTests;
 
 @WebMvcTest(VersionController.class)
 public class VersionControllerTests extends AbstractControllerTests {

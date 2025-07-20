@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.h5radar.account.domain.AbstractAuditable;
+import com.h5radar.account.AbstractAuditable;
 
 @Entity
 @Table(name = "account_users")

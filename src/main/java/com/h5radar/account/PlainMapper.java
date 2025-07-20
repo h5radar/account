@@ -1,4 +1,4 @@
-package com.h5radar.account.domain;
+package com.h5radar.account;
 
 public interface PlainMapper<E, D> {
 

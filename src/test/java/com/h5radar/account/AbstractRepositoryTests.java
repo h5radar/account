@@ -1,4 +1,4 @@
-package com.h5radar.account.domain;
+package com.h5radar.account;
 
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

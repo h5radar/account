@@ -20,8 +20,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import com.h5radar.account.domain.AbstractServiceTests;
-import com.h5radar.account.domain.ValidationException;
+import com.h5radar.account.AbstractServiceTests;
+import com.h5radar.account.ValidationException;
 
 class AccountUserServiceTests extends AbstractServiceTests {
   @MockitoBean

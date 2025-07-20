@@ -1,4 +1,4 @@
-package com.h5radar.account.domain;
+package com.h5radar.account;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,9 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.h5radar.account.AccountConstants;
-import com.h5radar.account.domain.account_user.AccountUserDto;
-import com.h5radar.account.domain.account_user.AccountUserService;
+import com.h5radar.account.account_user.AccountUserDto;
+import com.h5radar.account.account_user.AccountUserService;
 
 
 @Component

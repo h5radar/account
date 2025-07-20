@@ -24,7 +24,7 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import com.h5radar.account.domain.AbstractControllerTests;
+import com.h5radar.account.AbstractControllerTests;
 
 @WebMvcTest(AccountUserController.class)
 public class AccountUserControllerTests extends AbstractControllerTests {
