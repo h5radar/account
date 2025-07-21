@@ -1,5 +1,21 @@
-# H5Radar
-Technical and business radar. Demo available at https://app.h5radar.com. Spring boot based application.
+# H5Radar Account Service
+
+This repository contains the H5Radar Account Service responsible for authentication and user management within the H5Radar platform. It provides APIs for user registration, login, and profile management. This is a Spring Boot based application.
+
+H5Radar application consists of several modules. For an overview of the entire platform and its repositories, please see the [organization-level README](https://github.com/h5radar).
+
+## Features
+
+- User authentication and authorization
+- User registration and profile management
+
+## Contributing
+
+Contributions and issues are welcome. Please open pull requests or issues in this repository. For general discussions, roadmap input, and questions, please join our [organization Discussions](https://github.com/orgs/h5radar/discussions). We appreciate community involvement in shaping H5Radar!
+
+## License
+
+This repository is part of the H5Radar project and is licensed under the MIT License.
 
 # Setup environment
 ## Windows environment
