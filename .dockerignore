@@ -2,25 +2,11 @@
 .idea/
 *.iml
 
-# Git repository files
-.git/
-.gitignore
-
 # macOS system files
 .DS_Store
 
-# Windows-specific scripts
-mvnw.cmd
-
 # Log files
 *.log
-
-# Docker-related files that shouldn't be copied
-docker-compose*.yml
-Dockerfile
-
-# Local configuration files (optional)
-configs/
 
 # Maven build output (compiled classes, packaged JARs)
 target/
