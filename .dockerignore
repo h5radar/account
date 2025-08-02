@@ -15,10 +15,6 @@ mvnw.cmd
 # Log files
 *.log
 
-# Temporary or cache files
-tmp/
-*.tmp
-
 # Docker-related files that shouldn't be copied
 docker-compose*.yml
 Dockerfile
@@ -29,3 +25,8 @@ configs/
 # Maven build output (compiled classes, packaged JARs)
 target/
 *.class
+
+# Temporary or cache files
+tmp/
+*.tmp
+
