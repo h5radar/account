@@ -1,13 +1,12 @@
-# Stage 1: Build React app
-FROM node:22 AS build
+# Stage 1: Build Spring Boot app
+FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
 COPY . .
-RUN npm run build
+RUN ./mvnw clean package -Pdev -Dmaven.test.skip
 
-# Stage 2: Serve with nginx
-FROM nginx:stable-alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Stage 2: Run application
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /app/target/account.jar account.jar
+EXPOSE 8070
+ENTRYPOINT ["java", "-jar", "account.jar"]
