@@ -8,5 +8,6 @@ RUN ./mvnw clean package -Pdev -Dmaven.test.skip
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=builder /app/target/account*.jar account.jar
-EXPOSE 8070
+COPY application.yml.docker application.yml
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "account.jar"]
