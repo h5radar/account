@@ -4,12 +4,6 @@ application:
     allowed-methods: "*"
     allowed-headers: "*"
 
-logging:
-  level:
-    root: INFO
-    org:
-      springframework:
-        security: INFO
 spring:
   datasource:
     url: jdbc:h2:mem:account;MODE=PostgreSQL

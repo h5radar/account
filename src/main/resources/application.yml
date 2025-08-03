@@ -13,6 +13,7 @@ logging:
     org:
       hibernate: ERROR
       springframework:
+        security: INFO
         web: INFO
       com:
         zaxxer:
