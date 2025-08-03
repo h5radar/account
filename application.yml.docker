@@ -8,16 +8,16 @@ logging:
   charset:
     console: UTF-8
   level:
-    root: info
     org:
       hibernate: ERROR
-      springframework:
-        web: INFO
-        security: DEBUG
       com:
         zaxxer:
           hikari: INFO
           HikariConfig: INFO
+      springframework:
+        security: INFO
+        web: INFO
+    root: INFO
   config: classpath:configs/logback-spring.xml
 
 spring:

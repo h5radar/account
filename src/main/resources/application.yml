@@ -2,10 +2,6 @@ application:
   group_id: '@project.groupId@'
   artifact_id: '@project.artifactId@'
   version: '@project.version@'
-  cors:
-    allowed-origins: "http://127.0.0.1:5173,http://localhost:5173"
-    allowed-methods: "*"
-    allowed-headers: "*"
   paging:
     page: 1
     size: 10
@@ -17,12 +13,13 @@ logging:
     org:
       hibernate: ERROR
       springframework:
+        security: INFO
         web: INFO
       com:
         zaxxer:
           hikari: INFO
           HikariConfig: INFO
-    root: info
+    root: INFO
   config: classpath:configs/logback-spring.xml
 
 management:
