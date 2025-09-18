@@ -48,6 +48,27 @@ class AccountUserServiceTests extends AbstractServiceTests {
     Assertions.assertEquals(technologyDtoCollection.iterator().next().getUsername(), technology.getUsername());
   }
 
+  /*
+  @Test
+  // @Transactional
+  void shouldFindAllTechnologiesWithNullFilter() {
+    List<AccountUser> technologyList = List.of(
+        new AccountUser(null, "My sub", "My username"),
+        new AccountUser(null, "My new sub", "My new username"));
+    for (AccountUser technology : technologyList) {
+      accountUserRepository.save(technology);
+    }
+
+    Pageable pageable = PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.ASC, "sub")));
+    Page<AccountUserDto> technologyDtoPage = accountUserService.findAll(null, pageable);
+    Assertions.assertEquals(10, technologyDtoPage.getSize());
+    Assertions.assertEquals(0, technologyDtoPage.getNumber());
+    Assertions.assertEquals(1, technologyDtoPage.getTotalPages());
+    Assertions.assertEquals(2, technologyDtoPage.getNumberOfElements());
+  }
+   */
+
+
   @Test
   void shouldFindAllTechnologiesWithEmptyFilter() {
     final AccountUser technology = new AccountUser();
@@ -63,6 +84,9 @@ class AccountUserServiceTests extends AbstractServiceTests {
     AccountUserFilter technologyFilter = new AccountUserFilter();
     Pageable pageable = PageRequest.of(0, 10, Sort.by("sub,asc"));
     Page<AccountUserDto> technologyDtoPage = accountUserService.findAll(technologyFilter, pageable);
+    // Mockito.verify(accountUserRepository).findAll(
+    //     Specification.allOf((root, query, criteriaBuilder) -> null), pageable);
+
     Assertions.assertEquals(1, technologyDtoPage.getSize());
     Assertions.assertEquals(0, technologyDtoPage.getNumber());
     Assertions.assertEquals(1, technologyDtoPage.getTotalPages());
@@ -70,9 +94,55 @@ class AccountUserServiceTests extends AbstractServiceTests {
     Assertions.assertEquals(technologyDtoPage.iterator().next().getSub(), technology.getSub());
     Assertions.assertEquals(technologyDtoPage.iterator().next().getUsername(), technology.getUsername());
 
-    // Mockito.verify(accountUserRepository).findAll(
-    //     Specification.allOf((root, query, criteriaBuilder) -> null), pageable);
   }
+
+  /* TODO:
+  @Test
+  // @Transactional
+  void shouldFindAllTechnologiesWithBlankSubFilter() {
+    List<AccountUser> technologyList = List.of(
+        new AccountUser(null, "My sub", "My username"),
+        new AccountUser(null, "My new sub", "My new username"));
+    for (AccountUser technology : technologyList) {
+      accountUserRepository.save(technology);
+    }
+
+    AccountUserFilter accountUserFilter = new AccountUserFilter();
+    accountUserFilter.setSub("");
+    Pageable pageable = PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.ASC, "sub")));
+    Page<AccountUserDto> technologyDtoPage = accountUserService.findAll(accountUserFilter, pageable);
+    Assertions.assertEquals(10, technologyDtoPage.getSize());
+    Assertions.assertEquals(0, technologyDtoPage.getNumber());
+    Assertions.assertEquals(1, technologyDtoPage.getTotalPages());
+    Assertions.assertEquals(2, technologyDtoPage.getNumberOfElements());
+  }
+
+  @Test
+  // @Transactional
+  void shouldFindAllTechnologiesWithTitleFilter() {
+    List<AccountUser> technologyList = List.of(
+        new AccountUser(null,  "My sub",  "My username"),
+        new AccountUser(null, "My new sub",  "My new username"));
+    for (AccountUser technology : technologyList) {
+      accountUserRepository.save(technology);
+    }
+
+    AccountUserFilter accountUserFilter = new AccountUserFilter();
+    accountUserFilter.setSub(technologyList.iterator().next().getSub());
+    Pageable pageable = PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.ASC, "sub")));
+    Page<AccountUserDto> technologyDtoPage = accountUserService.findAll(accountUserFilter, pageable);
+    Assertions.assertEquals(10, technologyDtoPage.getSize());
+    Assertions.assertEquals(0, technologyDtoPage.getNumber());
+    Assertions.assertEquals(1, technologyDtoPage.getTotalPages());
+    Assertions.assertEquals(1, technologyDtoPage.getNumberOfElements());
+    Assertions.assertNotNull(technologyDtoPage.iterator().next().getId());
+    Assertions.assertEquals(technologyDtoPage.iterator().next().getSub(),
+        technologyList.iterator().next().getSub());
+    Assertions.assertEquals(technologyDtoPage.iterator().next().getUsername(),
+        technologyList.iterator().next().getUsername());
+  }
+
+   */
 
   @Test
   void shouldFindByIdAccountUser() {
@@ -82,14 +152,14 @@ class AccountUserServiceTests extends AbstractServiceTests {
     technology.setUsername("My username");
 
     Mockito.when(accountUserRepository.findById(technology.getId())).thenReturn(Optional.of(technology));
-
     Optional<AccountUserDto> technologyDtoOptional = accountUserService.findById(technology.getId());
+    Mockito.verify(accountUserRepository).findById(technology.getId());
+
     Assertions.assertTrue(technologyDtoOptional.isPresent());
     Assertions.assertEquals(technology.getId(), technologyDtoOptional.get().getId());
     Assertions.assertEquals(technology.getSub(), technologyDtoOptional.get().getSub());
     Assertions.assertEquals(technology.getUsername(), technologyDtoOptional.get().getUsername());
 
-    Mockito.verify(accountUserRepository).findById(technology.getId());
   }
 
   @Test
@@ -100,14 +170,14 @@ class AccountUserServiceTests extends AbstractServiceTests {
     technology.setUsername("My username");
 
     Mockito.when(accountUserRepository.findBySub(technology.getSub())).thenReturn(Optional.of(technology));
-
     Optional<AccountUserDto> technologyDtoOptional = accountUserService.findBySub(technology.getSub());
+    Mockito.verify(accountUserRepository).findBySub(technology.getSub());
+
     Assertions.assertTrue(technologyDtoOptional.isPresent());
     Assertions.assertEquals(technology.getId(), technologyDtoOptional.get().getId());
     Assertions.assertEquals(technology.getSub(), technologyDtoOptional.get().getSub());
     Assertions.assertEquals(technology.getUsername(), technologyDtoOptional.get().getUsername());
 
-    Mockito.verify(accountUserRepository).findBySub(technology.getSub());
   }
 
   @Test
@@ -118,13 +188,13 @@ class AccountUserServiceTests extends AbstractServiceTests {
     technology.setUsername("My username");
 
     Mockito.when(accountUserRepository.save(any())).thenReturn(technology);
-
     AccountUserDto technologyDto = accountUserService.save(accountUserMapper.toDto(technology));
+    Mockito.verify(accountUserRepository).save(any());
+
     Assertions.assertEquals(technology.getId(), technologyDto.getId());
     Assertions.assertEquals(technology.getSub(), technologyDto.getSub());
     Assertions.assertEquals(technology.getUsername(), technologyDto.getUsername());
 
-    Mockito.verify(accountUserRepository).save(any());
   }
 
   @Test
@@ -148,7 +218,6 @@ class AccountUserServiceTests extends AbstractServiceTests {
     technology.setUsername("My username");
 
     Mockito.doAnswer((i) -> null).when(accountUserRepository).deleteById(technology.getId());
-
     accountUserService.deleteById(technology.getId());
     Mockito.verify(accountUserRepository).deleteById(technology.getId());
   }
