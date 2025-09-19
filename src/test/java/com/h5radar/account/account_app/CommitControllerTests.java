@@ -16,7 +16,6 @@ import com.h5radar.account.AbstractControllerTests;
 public class CommitControllerTests extends AbstractControllerTests {
 
   @Test
-  @WithAnonymousUser
   public void shouldShowCommit() throws Exception {
     mockMvc.perform(get("/api/v1/account-app/commit").contentType(APPLICATION_JSON))
         .andExpect(status().isOk())
