@@ -37,8 +37,8 @@ public class AccountUserControllerTests extends AbstractControllerTests {
 
     mockMvc.perform(get("/api/v1/account-users")
             .with(jwt().jwt(j -> {
-              j.claim("sub", "My sub");
-              j.claim("preferred_username", "My username");
+              j.claim("sub", accountUserDto.getSub());
+              j.claim("preferred_username", accountUserDto.getUsername());
             }))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -80,8 +80,8 @@ public class AccountUserControllerTests extends AbstractControllerTests {
 
     mockMvc.perform(get("/api/v1/account-users/{id}", accountUserDto.getId())
             .with(jwt().jwt(j -> {
-              j.claim("sub", "My sub");
-              j.claim("preferred_username", "My username");
+              j.claim("sub", accountUserDto.getSub());
+              j.claim("preferred_username", accountUserDto.getUsername());
             }))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
