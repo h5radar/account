@@ -14,7 +14,7 @@ import com.h5radar.account.account_user.AccountUserService;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = AccountApplication.class)
 public abstract class AbstractIntegrationTests extends AbstractAnyTests {
 
-  // @Autowired
+  @Autowired
   protected WebTestClient webTestClient;
 
   @Autowired
@@ -24,8 +24,16 @@ public abstract class AbstractIntegrationTests extends AbstractAnyTests {
   public void setWebApplicationContext(final WebApplicationContext context) {
     webTestClient = MockMvcWebTestClient.bindToApplicationContext(context)
         .apply(SecurityMockMvcConfigurers.springSecurity())
-        .defaultRequest(MockMvcRequestBuilders.get("/").with(SecurityMockMvcRequestPostProcessors.csrf()))
+        .defaultRequest(
+            MockMvcRequestBuilders.get("/")
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .with(SecurityMockMvcRequestPostProcessors.jwt().jwt(j -> {
+                  j.claim("sub", "My sub");
+                  j.claim("preferred_username", "My username");
+                }))
+        )
         .configureClient()
         .build();
   }
+
 }

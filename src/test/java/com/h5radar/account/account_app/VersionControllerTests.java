@@ -16,7 +16,6 @@ import com.h5radar.account.AbstractControllerTests;
 public class VersionControllerTests extends AbstractControllerTests {
 
   @Test
-  @WithAnonymousUser
   public void shouldShowVersion() throws Exception {
     mockMvc.perform(get("/api/v1/account-app/version").contentType(APPLICATION_JSON))
         .andExpect(status().isOk())

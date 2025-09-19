@@ -1,11 +1,7 @@
 package com.h5radar.account.account_user;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import reactor.core.publisher.Mono;
 
 import com.h5radar.account.AbstractIntegrationTests;
 
@@ -13,7 +9,6 @@ import com.h5radar.account.AbstractIntegrationTests;
 class AccountUserIntegrationTests extends AbstractIntegrationTests {
 
   @Test
-  @WithMockUser(value = "My sub")
   public void shouldGetAccountUsers() {
     // Create accountUser
     AccountUserDto accountUserDto = new AccountUserDto();
@@ -39,7 +34,6 @@ class AccountUserIntegrationTests extends AbstractIntegrationTests {
   }
 
   @Test
-  @WithMockUser(value = "My sub")
   public void shouldGetAccountUser() {
     // Create accountUser
     AccountUserDto accountUserDto = new AccountUserDto();
