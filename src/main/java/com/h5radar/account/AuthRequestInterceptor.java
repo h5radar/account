@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.lang.NonNull;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +31,9 @@ public class AuthRequestInterceptor implements HandlerInterceptor {
 
 
   @Override
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+  public boolean preHandle(@NonNull HttpServletRequest request,
+                           @NonNull HttpServletResponse response,
+                           @NonNull Object handler) throws Exception {
     AccountUserDto accountUserDto = new AccountUserDto();
 
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -48,7 +51,7 @@ public class AuthRequestInterceptor implements HandlerInterceptor {
       request.setAttribute(AccountConstants.ACCOUNT_USER_ID_ATTRIBUTE_NAME, accountUserId);
     } catch (DataIntegrityViolationException exception) {
       if (exception.getMessage().toLowerCase().contains(ACCOUNT_USERS_SUB_CONSTRAINTS)) {
-        Optional<AccountUserDto> accountUserDtoOptional =  accountUserService.findBySub(accountUserDto.getSub());
+        Optional<AccountUserDto> accountUserDtoOptional = accountUserService.findBySub(accountUserDto.getSub());
         if (accountUserDtoOptional.isPresent()) {
           request.setAttribute(AccountConstants.ACCOUNT_USER_ID_ATTRIBUTE_NAME, accountUserDtoOptional.get().getId());
           return true;
